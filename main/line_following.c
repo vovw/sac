@@ -2,6 +2,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "sra_board.h"
+#include "tuning_http_server.h"
 
 #define MODE NORMAL_MODE
 #define BLACK_MARGIN 4095
@@ -10,21 +11,28 @@
 #define bound_LSA_HIGH 1000
 #define BLACK_BOUNDARY  930    // Boundary value to distinguish between black and white readings
 
+/*
+ * weights given to respective line sensor
+ */
 const int weights[5] = {-5, -3, 1, 3, 5};
 
-
-int optimum_duty_cycle = 57;
+/*
+ * Motor value boundts
+ */
+int optimum_duty_cycle = 60;
 int lower_duty_cycle = 45;
-int higher_duty_cycle = 70;
+int higher_duty_cycle = 80;
 float left_duty_cycle = 0, right_duty_cycle = 0;
 
+/*
+ * Line Following PID Variables
+ */
 float error=0, prev_error=0, difference, cumulative_error, correction;
 
+/*
+ * Union containing line sensor readings
+ */
 line_sensor_array line_sensor_readings;
-
-const float k[] = {1.0,6.5,0.0};
-// Kp, Ki, Kd
-
 
 void calculate_correction()
 {
@@ -34,7 +42,7 @@ void calculate_correction()
 
     cumulative_error = bound(cumulative_error, -30, 30);
 
-    correction =  k[0]*error + k[1]*cumulative_error + k[2]*difference;
+    correction = read_pid_const().kp*error + read_pid_const().ki*cumulative_error + read_pid_const().kd*difference;
     prev_error = error;
 }
 
@@ -92,7 +100,7 @@ void line_follow_task(void* arg)
     adc_handle_t line_sensor;
     ESP_ERROR_CHECK(enable_line_sensor(&line_sensor));
     ESP_ERROR_CHECK(enable_bar_graph());
-    #ifdef CONFIG_ENABLE_OLED
+#ifdef CONFIG_ENABLE_OLED
     // Initialising the OLED
     ESP_ERROR_CHECK(init_oled());
     vTaskDelay(100);
@@ -100,8 +108,7 @@ void line_follow_task(void* arg)
     // Clearing the screen
     lv_obj_clean(lv_scr_act());
 
-    #endif
-
+#endif
 
     while(true)
     {
@@ -124,10 +131,14 @@ void line_follow_task(void* arg)
 
 
         //ESP_LOGI("debug","left_duty_cycle:  %f    ::  right_duty_cycle :  %f  :: error :  %f  correction  :  %f  \n",left_duty_cycle, right_duty_cycle, error, correction);
-        ESP_LOGI("debug", "KP: %f ::  KI: %f  :: KD: %f", k[0],k[1],k[2]);
+        ESP_LOGI("debug", "KP: %f ::  KI: %f  :: KD: %f", read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
 #ifdef CONFIG_ENABLE_OLED
         // Diplaying kp, ki, kd values on OLED 
-            display_pid_values(k[0],k[1],k[2]);
+        if (read_pid_const().val_changed)
+        {
+            display_pid_values(read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
+            reset_val_changed_pid_const();
+        }
 #endif
 
         vTaskDelay(10 / portTICK_PERIOD_MS);
@@ -139,4 +150,5 @@ void line_follow_task(void* arg)
 void app_main()
 {
     xTaskCreate(&line_follow_task, "line_follow_task", 4096, NULL, 1, NULL);
+    start_tuning_http_server();
 }
