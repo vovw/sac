@@ -3,6 +3,7 @@
 #include "freertos/task.h"
 #include "sra_board.h"
 #include "tuning_http_server.h"
+#include "ir.h"
 
 #define MODE NORMAL_MODE
 #define BLACK_MARGIN 4095
@@ -137,6 +138,7 @@ void line_follow_task(void* arg)
 
         //ESP_LOGI("debug","left_duty_cycle:  %f    ::  right_duty_cycle :  %f  :: error :  %f  correction  :  %f  \n",left_duty_cycle, right_duty_cycle, error, correction);
         ESP_LOGI("debug", "KP: %f ::  KI: %f  :: KD: %f", read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
+	ESP_LOGI("IR_TEST","IR_VALUE : %d",read_ir());
 #ifdef CONFIG_ENABLE_OLED
         // Diplaying kp, ki, kd values on OLED
         if (read_pid_const().val_changed)
