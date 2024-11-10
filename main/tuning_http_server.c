@@ -70,16 +70,44 @@ static esp_err_t set_content_type_from_file(httpd_req_t *req, const char *filepa
     return httpd_resp_set_type(req, type);
 }
 
+// changes here
+static esp_err_t speed_post_handler(httpd_req_t *req)
+{
+    char buf[100];
+    int ret, remaining = req->content_len;
+
+    if (remaining >= sizeof(buf)) {
+        remaining = sizeof(buf);
+    }
+    ret = httpd_req_recv(req, buf, remaining);
+
+    cJSON *root = cJSON_Parse(buf);
+    int speed = cJSON_GetObjectItem(root, "higher_duty_cycle")->valueint;
+
+    set_higher_duty_cycle(speed);
+
+    cJSON_Delete(root);
+
+    httpd_resp_send(req, "OK", 2);
+    return ESP_OK;
+}
+
+
+void set_higher_duty_cycle(int speed)
+{
+    higher_duty_cycle = speed;
+}
+
 /* Send HTTP response with the contents of the requested file */
 static esp_err_t rest_common_get_handler(httpd_req_t *req)
 {
     char filepath[FILE_PATH_MAX] = WEB_MOUNT_POINT;
 
-    if (strlen(req->uri) > 0 && req->uri[strlen(req->uri) - 1] == '/') 
+    if (strlen(req->uri) > 0 && req->uri[strlen(req->uri) - 1] == '/')
     {
         strlcat(filepath, "/index.html", sizeof(filepath));
     }
-    else 
+    else
     {
         strlcat(filepath, req->uri, sizeof(filepath));
     }
@@ -149,17 +177,17 @@ static esp_err_t tuning_pid_post_handler(httpd_req_t *req)
 
     cJSON *root = cJSON_Parse(buf);
     if (root == NULL)
-    {   
+    {
         ESP_LOGE(TAG, "invalid json response");
         return ESP_FAIL;
     }
-    
+
     if (!cJSON_HasObjectItem(root, "kp") || !cJSON_HasObjectItem(root, "ki") || !cJSON_HasObjectItem(root, "kd"))
     {
         ESP_LOGE(TAG, "invalid json response");
         return ESP_FAIL;
     }
-    
+
     pid_constants.kp = (float)cJSON_GetObjectItem(root, "kp")->valuedouble;
     pid_constants.ki = (float)cJSON_GetObjectItem(root, "ki")->valuedouble;
     pid_constants.kd = (float)cJSON_GetObjectItem(root, "kd")->valuedouble;
@@ -183,13 +211,23 @@ static esp_err_t start_tuning_http_server_private()
         ESP_LOGE(TAG, "start server failed");
         return ESP_FAIL;
     }
-    
+
     httpd_uri_t tuning_pid_post_uri = {
         .uri = "/api/v1/pid",
         .method = HTTP_POST,
         .handler = tuning_pid_post_handler,
         .user_ctx = NULL
     };
+    // changes here
+    httpd_uri_t speed_uri = {
+        .uri       = "/api/v1/speed",
+        .method    = HTTP_POST,
+        .handler   = speed_post_handler,
+        .user_ctx  = NULL
+    };
+
+    httpd_register_uri_handler(server, &speed_uri);
+
     if (httpd_register_uri_handler(server, &tuning_pid_post_uri) != ESP_OK)
     {
         ESP_LOGE(TAG, "register post uri failed");
@@ -233,6 +271,6 @@ void start_tuning_http_server()
     connect_to_wifi();
     ESP_ERROR_CHECK(init_fs());
     ESP_ERROR_CHECK(start_tuning_http_server_private());
-    
+
     vTaskDelete(NULL);
 }

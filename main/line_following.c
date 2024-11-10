@@ -21,7 +21,12 @@ const int weights[5] = {-5, -3, 1, 3, 5};
  */
 int optimum_duty_cycle = 60;
 int lower_duty_cycle = 45;
-int higher_duty_cycle = 80;
+extern int higher_duty_cycle;
+
+int higher_duty_cycle = 80; // Initial value of 80
+
+
+
 float left_duty_cycle = 0, right_duty_cycle = 0;
 
 /*
@@ -49,7 +54,7 @@ void calculate_correction()
 void calculate_error()
 {
     int all_black_flag = 1; // assuming initially all black condition
-    float weighted_sum = 0, sum = 0; 
+    float weighted_sum = 0, sum = 0;
     float pos = 0; int k = 0;
 
     for(int i = 0; i < 5; i++)
@@ -133,7 +138,7 @@ void line_follow_task(void* arg)
         //ESP_LOGI("debug","left_duty_cycle:  %f    ::  right_duty_cycle :  %f  :: error :  %f  correction  :  %f  \n",left_duty_cycle, right_duty_cycle, error, correction);
         ESP_LOGI("debug", "KP: %f ::  KI: %f  :: KD: %f", read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
 #ifdef CONFIG_ENABLE_OLED
-        // Diplaying kp, ki, kd values on OLED 
+        // Diplaying kp, ki, kd values on OLED
         if (read_pid_const().val_changed)
         {
             display_pid_values(read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);

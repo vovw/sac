@@ -27,6 +27,9 @@
 #define SCRATCH_BUFSIZE (10240)
 #define CHECK_FILE_EXTENSION(filename, ext) (strcasecmp(&filename[strlen(filename) - strlen(ext)], ext) == 0)
 
+
+extern int higher_duty_cycle;
+
 typedef struct pid_const
 {
     float kp;
@@ -36,6 +39,9 @@ typedef struct pid_const
 } pid_const_t;
 
 pid_const_t read_pid_const();
+
+// changes heree
+void set_higher_duty_cycle(int speed);
 void reset_val_changed_pid_const();
 void start_tuning_http_server();
 
