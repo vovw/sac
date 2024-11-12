@@ -96,7 +96,7 @@ void calculate_error()
     if(all_black_flag == 1)
     {	
 	all_black_counter++;
-	if(all_black_counter>=12){
+	if(all_black_counter>=8){
 		error = 999;
 	}
 	else{

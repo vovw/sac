@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "line_following",
-    "project_version":    "9b14d2f-dirty",
+    "project_version":    "f06784e-dirty",
     "project_path":       "/home/crisiumnih/sac2024",
     "idf_path":           "/home/crisiumnih/esp/esp-idf",
     "build_dir":          "/home/crisiumnih/sac2024/build",

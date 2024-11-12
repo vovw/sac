@@ -613,6 +613,8 @@ _Python3_EXECUTABLE:INTERNAL=/home/crisiumnih/.espressif/python_env/idf5.2_py3.1
 //Python3 Properties
 _Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;12;7;32;;;/home/crisiumnih/miniconda3/lib/python3.12;/home/crisiumnih/miniconda3/lib/python3.12;/home/crisiumnih/.espressif/python_env/idf5.2_py3.12_env/lib/python3.12/site-packages;/home/crisiumnih/.espressif/python_env/idf5.2_py3.12_env/lib/python3.12/site-packages
 _Python3_INTERPRETER_SIGNATURE:INTERNAL=9a6779e5fe9a7331e9f58ccdeae41b7b
+//Interpreter reason failure
+_Python3_Interpreter_REASON_FAILURE:INTERNAL=
 //NumPy reason failure
 _Python3_NumPy_REASON_FAILURE:INTERNAL=
 
