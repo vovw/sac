@@ -26,7 +26,7 @@ int optimum_duty_cycle = 60;
 int lower_duty_cycle = 5;
 extern int higher_duty_cycle;
 
-int higher_duty_cycle = 64;
+int higher_duty_cycle = 67;
 
 
 float left_duty_cycle = 35, right_duty_cycle = 35;
@@ -96,7 +96,7 @@ void calculate_error()
     if(all_black_flag == 1)
     {	
 	all_black_counter++;
-	if(all_black_counter>=25){
+	if(all_black_counter>=12){
 		error = 999;
 	}
 	else{
@@ -169,11 +169,21 @@ void line_follow_task(void* arg)
         } else {
             // Normal line following behavior
             calculate_correction();
-            left_duty_cycle = bound((optimum_duty_cycle + correction), lower_duty_cycle, higher_duty_cycle);
-            right_duty_cycle = bound((optimum_duty_cycle - correction), lower_duty_cycle, higher_duty_cycle);
-            set_motor_speed(motor_a_0, MOTOR_FORWARD, left_duty_cycle);
-            set_motor_speed(motor_a_1, MOTOR_FORWARD, right_duty_cycle);
-
+	if (correction > 0) {  // Need to turn right
+			left_duty_cycle = bound((optimum_duty_cycle + correction), lower_duty_cycle, higher_duty_cycle);
+			right_duty_cycle = bound(correction, lower_duty_cycle, higher_duty_cycle);
+			set_motor_speed(motor_a_0, MOTOR_FORWARD, left_duty_cycle);
+			set_motor_speed(motor_a_1, MOTOR_BACKWARD, right_duty_cycle);
+		    } else if (correction < 0) {  // Need to turn left
+			left_duty_cycle = bound(-correction, lower_duty_cycle, higher_duty_cycle);
+			right_duty_cycle = bound((optimum_duty_cycle - correction), lower_duty_cycle, higher_duty_cycle);
+			set_motor_speed(motor_a_0, MOTOR_BACKWARD, left_duty_cycle);
+			set_motor_speed(motor_a_1, MOTOR_FORWARD, right_duty_cycle);
+		    } else {  // Go straight
+			left_duty_cycle = right_duty_cycle = optimum_duty_cycle;
+			set_motor_speed(motor_a_0, MOTOR_FORWARD, left_duty_cycle);
+			set_motor_speed(motor_a_1, MOTOR_FORWARD, right_duty_cycle);
+		    }
         }
 	//ESP_LOGI("debug","left_duty_cycle:  %f    ::  right_duty_cycle :  %f  :: error :  %f  correction  :  %f  \n",left_duty_cycle, right_duty_cycle, error, correction);
 	ESP_LOGI("debug", "KP: %f ::  KI: %f  :: KD: %f", read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
