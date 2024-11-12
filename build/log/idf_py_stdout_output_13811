@@ -1,0 +1,315 @@
+addr=3ff80000 size=00004h (     4) load[0m
+[0;32mI (172) esp_image: segment 2: paddr=0003adf0 vaddr=3ffb0000 si�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15540
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.3 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Nov 11 2024 15:22:44[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.0[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00200000[0m
+[0;32mI (92) boot:  3 www              Unknown data     01 82 00210000 00100000[0m
+[0;32mI (99) boot: End of partition table[0m
+[0;32mI (103) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2adbch (175548) map[0m
+[0;32mI (172) esp_image: segment 1: paddr=0003ade4 vaddr=3ff80000 size=00004h (     4) load[0m
+[0;32mI (172) esp_image: segment 2: paddr=0003adf0 vaddr=3ffb0000 size=03dc4h ( 15812) load[0m
+[0;32mI (184) esp_image: segment 3: paddr=0003ebbc vaddr=40080000 size=0145ch (  5212) load[0m
+[0;32mI (188) esp_image: segment 4: paddr=00040020 vaddr=400d0020 size=b9618h (759320) map[0m
+[0;32mI (455) esp_image: segment 5: paddr=000f9640 vaddr=4008145c size=16a90h ( 92816) load[0m
+[0;32mI (503) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (503) boot: Disabling RNG early entropy source...[0m
+[0;32mI (515) cpu_start: Multicore app[0m
+[0;32mI (524) cpu_start: Pro cpu start user code[0m
+[0;32mI (524) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (524) cpu_start: Application information:[0m
+[0;32mI (527) cpu_start: Project name:     line_following[0m
+[0;32mI (533) cpu_start: App version:      bba880c-dirty[0m
+[0;32mI (538) cpu_start: Compile time:     Nov 12 2024 14:06:54[0m
+[0;32mI (544) cpu_start: ELF file SHA256:  6f96deaeef8c02bb...[0m
+[0;32mI (550) cpu_start: ESP-IDF:          v5.2.3[0m
+[0;32mI (555) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (560) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (565) cpu_start: Chip rev:         v3.0[0m
+[0;32mI (570) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (577) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (583) heap_init: At 3FFC4370 len 0001BC90 (111 KiB): DRAM[0m
+[0;32mI (589) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (595) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (602) heap_init: At 40097EEC len 00008114 (32 KiB): IRAM[0m
+[0;32mI (610) spi_flash: detected chip: generic[0m
+[0;32mI (613) spi_flash: flash io: dio[0m
+[0;33mW (617) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (628) main_task: Started on CPU0[0m
+[0;32mI (638) main_task: Calling app_main()[0m
+[0;32mI (638) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (638) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (648) MCPWM: motor 0x3ffaffb4 created[0m
+[0;32mI (658) MCPWM: motor timer 0x3ffc85a0 created[0m
+[0;32mI (658) MCPWM: motor 0x3ffaffb4 enable of timer 0x3ffc85a0[0m
+[0;32mI (668) gpio: GPIO[25]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (668) wifi station: ESP_WIFI_MODE_STA[0m
+[0;32mI (678) gpio: GPIO[26]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (688) wifi:[0;32mI (688) MCPWM: motor 0x3ffc90c8 created[0m[0m
+wifi driver task: 3ffced78, prio:23, stack:6656, core=0[0;32mI (698) MCPWM: motor timer 0x3ffc9100 created[0m
+
+[0;32mI (708) MCPWM: motor 0x3ffc90c8 enable of timer 0x3ffc9100[0m
+[0;32mI (708) adc: calibration scheme version is Line Fitting[0m
+[0;32mI (718) adc: Calibration Success[0m
+[0;32mI (718) wifi:[0;32mI (718) adc: calibration scheme version is Line Fitting[0m[0m
+wifi firmware version: 82f54d2[0;32mI (728) adc: Calibration Success[0m
+
+[0;32mI (738) adc: calibration scheme version is Line Fitting[0m
+[0;32mI (738) wifi:[0;32mI (738) adc: Calibration Success[0m[0m
+wifi certification version: v7.0[0;32mI (748) adc: calibration scheme version is Line Fitting[0m
+
+[0;32mI (758) adc: Calibration Success[0m
+[0;32mI (758) wifi:[0;32mI (758) adc: calibration scheme version is Line Fitting[0m[0m
+config NVS flash: enabled[0;32mI (768) adc: Calibration Success[0m
+
+[0;32mI (768) gpio: GPIO[5]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 1| Intr:0 [0m
+[0;32mI (768) wifi:config nano formating: disabled[0;32mI (778) gpio: GPIO[15]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 1| Intr:0 [0m[0m
+
+[0;32mI (788) gpio: GPIO[18]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 1| Intr:0 [0m
+[0;32mI (798) wifi:[0;32mI (798) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 1| Intr:0 [0m[0m
+Init data frame dynamic rx buffer num: 32[0;32mI (808) bar_graph: enabled bar graph leds in mode: 1[0m
+
+[0;32mI (818) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (828) wifi:Init management short buffer num: 32[0m
+[0;32mI (828) oled: Displayed SRA logo on OLED Screen[0m
+[0;32mI (828) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (838) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (848) wifi:Init static rx buffer num: 10[0m
+[0;32mI (848) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (848) wifi_init: rx ba win: 6[0m
+[0;32mI (858) wifi_init: tcpip mbox: 32[0m
+[0;32mI (858) wifi_init: udp mbox: 6[0m
+[0;32mI (868) wifi_init: tcp mbox: 6[0m
+[0;32mI (868) wifi_init: tcp tx win: 5744[0m
+[0;32mI (868) wifi_init: tcp rx win: 5744[0m
+[0;32mI (878) wifi_init: tcp mss: 1440[0m
+[0;32mI (878) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (888) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (888) phy_init: phy_version 4840,a40f0ac,Aug 16 2024,16:48:06[0m
+[0;32mI (968) wifi:mode : sta (e8:31:cd:c4:d0:ec)[0m
+[0;32mI (968) wifi:enable tsf[0m
+[0;32mI (968) wifi station: wifi_init_sta finished.[0m
+[0;32mI (988) wifi:new:<11,0>, old:<1,0>, ap:<255,255>, sta:<11,0>, prof:1[0m
+[0;32mI (988) wifi:state: init -> auth (b0)[0m
+[0;32mI (998) wifi:state: auth -> assoc (0)[0m
+[0;32mI (1028) wifi:state: assoc -> run (10)[0m
+[0;32mI (1038) wifi:connected with Delta_Virus_2.4G, aid = 4, channel 11, BW20, bssid = 50:2b:73:89:ee:21[0m
+[0;32mI (1038) wifi:security: WPA2-PSK, phy: bgn, rssi: -48[0m
+[0;32mI (1048) wifi:pm start, type: 1[0m
+
+[0;32mI (1048) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (1058) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (1068) wifi:<ba-add>idx:0 (ifx:0, 50:2b:73:89:ee:21), tid:7, ssn:0, winSize:64[0m
+[0;32mI (1878) oled: Displayed Wall-E logo on OLED Screen[0m
+[0;32mI (1918) oled: Configured OLED Display[0m
+[0;32mI (2558) wifi:<ba-add>idx:1 (ifx:0, 50:2b:73:89:ee:21), tid:5, ssn:2, winSize:64[0m
+[0;32mI (2948) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3018) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3048) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3078) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3108) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3138) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3168) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3188) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3228) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3258) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3288) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3318) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3348) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3378) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3398) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3438) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3468) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3488) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3528) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3558) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3588) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3618) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3648) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3678) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3708) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3738) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3768) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3798) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3828) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3858) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3888) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3908) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3948) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (3978) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4008) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4038) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4058) esp_netif_handlers: sta ip: 192.168.0.186, mask: 255.255.255.0, gw: 192.168.0.1[0m
+[0;32mI (4058) wifi station: got ip:192.168.0.186[0m
+[0;32mI (4058) wifi station: connected to ap SSID: Delta_Virus_2.4G[0m
+[0;32mI (4078) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4118) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4168) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4208) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4238) tuning_http_server: Partition size: total: 956561, used: 11797[0m
+[0;32mI (4238) tuning_http_server: Starting HTTP Server[0m
+[0;32mI (4248) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4278) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4298) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4338) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4368) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4398) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4428) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4458) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4488) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4518) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4548) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4578) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4598) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4628) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4668) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4698) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4728) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4758) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4788) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4808) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4838) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4878) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4898) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4938) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4968) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (4998) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5018) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5058) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5088) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5108) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5138) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5178) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5198) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5238) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5268) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5288) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5318) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5348) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5388) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5408) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5438) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5478) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5498) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5538) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (5568) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6638) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6668) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6698) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6728) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6758) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6788) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6818) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6848) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6878) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6908) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6938) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6968) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (6998) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7028) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7058) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7088) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7118) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7148) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7178) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7208) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7238) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7258) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7288) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7328) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7348) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7388) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7418) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7438) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7548) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7578) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7598) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7638) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7658) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7688) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7728) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7748) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (7788) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (8868) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (8898) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (8918) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (8958) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (8988) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9008) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9038) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9078) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9108) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9128) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9168) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9198) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9218) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9258) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9288) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9308) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9338) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9378) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9408) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9428) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9468) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9498) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9518) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9548) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9588) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9618) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9638) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9678) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9708) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9728) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9768) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9798) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9818) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9848) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9888) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9918) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9938) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (9978) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10008) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10028) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10058) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10098) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10128) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10148) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10188) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10218) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10238) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10278) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10308) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10328) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10358) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10398) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10428) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10448) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10488) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10518) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10538) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10578) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10608) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10638) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10658) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10698) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m
+[0;32mI (10728) debug: KP: 4.000000 ::  KI: 0.000000  :: KD: 12.000000[0m

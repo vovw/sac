@@ -1,0 +1,24 @@
+[1/10] cd /home/crisiumnih/sac2024/build/esp-idf/main && /home/crisiumnih/.espressif/python_env/idf5.2_py3.12_env/bin/python /home/crisiumnih/esp/esp-idf/components/spiffs/spiffsgen.py 0x100000 /home/crisiumnih/sac2024/frontend /home/crisiumnih/sac2024/build/www.bin --page-size=256 --obj-name-len=64 --meta-len=4 --use-magic --use-magic-len
+[2/10] Performing build step for 'bootloader'
+[1/1] cd /home/crisiumnih/sac2024/build/bootloader/esp-idf/esptool_py && /home/crisiumnih/.espressif/python_env/idf5.2_py3.12_env/bin/python /home/crisiumnih/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /home/crisiumnih/sac2024/build/bootloader/bootloader.bin
+Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.
+[3/10] No install step for 'bootloader'
+[4/10] Completed 'bootloader'
+[5/10] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/line_following.c.obj
+In file included from /home/crisiumnih/sac2024/components/sra-board-component/include/servo.h:30,
+                 from /home/crisiumnih/sac2024/components/sra-board-component/include/sra_board.h:35,
+                 from /home/crisiumnih/sac2024/main/line_following.c:4:
+/home/crisiumnih/esp/esp-idf/components/driver/deprecated/driver/mcpwm.h:15:2: warning: #warning "legacy MCPWM driver is deprecated, please migrate to the new driver (include driver/mcpwm_prelude.h)" [-Wcpp]
+   15 | #warning "legacy MCPWM driver is deprecated, please migrate to the new driver (include driver/mcpwm_prelude.h)"
+      |  ^~~~~~~
+[6/10] Linking C static library esp-idf/main/libmain.a
+[7/10] Generating ld/sections.ld
+[8/10] Linking CXX executable line_following.elf
+[9/10] Generating binary image from built executable
+esptool.py v4.8.1
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /home/crisiumnih/sac2024/build/line_following.bin
+[10/10] cd /home/crisiumnih/sac2024/build/esp-idf/esptool_py && /home/crisiumnih/.espressif/python_env/idf5.2_py3.12_env/bin/python /home/crisiumnih/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/crisiumnih/sac2024/build/partition_table/partition-table.bin /home/crisiumnih/sac2024/build/line_following.bin
+line_following.bin binary size 0xffff0 bytes. Smallest app partition is 0x200000 bytes. 0x100010 bytes (50%) free.

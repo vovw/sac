@@ -11,6 +11,7 @@
 #define bound_LSA_LOW 0
 #define bound_LSA_HIGH 1000
 #define BLACK_BOUNDARY  930    // Boundary value to distinguish between black and white readings
+#define ROTATION_SPEED 60 
 
 /*
  * weights given to respective line sensor
@@ -21,14 +22,13 @@ const int weights[5] = {-5, -3, 1, 3, 5};
  * Motor value boundts
  */
 int optimum_duty_cycle = 60;
-int lower_duty_cycle = 45;
+int lower_duty_cycle = 5;
 extern int higher_duty_cycle;
 
-int higher_duty_cycle = 80; // Initial value of 80
+int higher_duty_cycle = 64;
 
 
-
-float left_duty_cycle = 0, right_duty_cycle = 0;
+float left_duty_cycle = 5, right_duty_cycle = 5;
 
 /*
  * Line Following PID Variables
@@ -39,6 +39,17 @@ float error=0, prev_error=0, difference, cumulative_error, correction;
  * Union containing line sensor readings
  */
 line_sensor_array line_sensor_readings;
+
+bool is_white_detected() {
+    for(int i = 0; i < 5; i++) {
+        if(line_sensor_readings.adc_reading[i] < BLACK_BOUNDARY) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 void calculate_correction()
 {
@@ -60,43 +71,39 @@ void calculate_error()
 
     for(int i = 0; i < 5; i++)
     {
-        if(line_sensor_readings.adc_reading[i] > BLACK_BOUNDARY)
-        {
-            all_black_flag = 0;
-        }
-        if(line_sensor_readings.adc_reading[i] > BLACK_BOUNDARY)
-        {
-            k = 1;
-        }
-        if(line_sensor_readings.adc_reading[i] < BLACK_BOUNDARY)
-        {
-            k = 0;
-        }
-        weighted_sum += (float)(weights[i]) * k;
-        sum = sum + k;
+	if(line_sensor_readings.adc_reading[i] > BLACK_BOUNDARY)
+	{
+	    all_black_flag = 0;
+	}
+	if(line_sensor_readings.adc_reading[i] > BLACK_BOUNDARY)
+	{
+	    k = 1;
+	}
+	if(line_sensor_readings.adc_reading[i] < BLACK_BOUNDARY)
+	{
+	    k = 0;
+	}
+	weighted_sum += (float)(weights[i]) * k;
+	sum = sum + k;
     }
 
     if(sum != 0) // sum can never be 0 but just for safety purposes
     {
-        pos = (weighted_sum - 1) / sum; // This will give us the position wrt line. if +ve then bot is facing left and if -ve the bot is facing to right.
+	pos = (weighted_sum - 1) / sum; // This will give us the position wrt line. if +ve then bot is facing left and if -ve the bot is facing to right.
     }
 
-    if(all_black_flag == 1)  // If all black then we check for previous error to assign current error.
+    if(all_black_flag == 1)
     {
-        if(prev_error > 0)
-        {
-            error = 2.5;
-        }
-        else
-        {
-            error = -2.5;
-        }
+        error = 999; // Special error value to indicate all-black condition
     }
     else
     {
         error = pos;
     }
 }
+
+
+
 
 void line_follow_task(void* arg)
 {
@@ -118,37 +125,51 @@ void line_follow_task(void* arg)
 
     while(true)
     {
-        line_sensor_readings = read_line_sensor(line_sensor);
-        for(int i = 0; i < 5; i++)
-        {
-            line_sensor_readings.adc_reading[i] = bound(line_sensor_readings.adc_reading[i], WHITE_MARGIN, BLACK_MARGIN);
-            line_sensor_readings.adc_reading[i] = map(line_sensor_readings.adc_reading[i], WHITE_MARGIN, BLACK_MARGIN, bound_LSA_LOW, bound_LSA_HIGH);
-            line_sensor_readings.adc_reading[i] = 1000 - (line_sensor_readings.adc_reading[i]);
+	line_sensor_readings = read_line_sensor(line_sensor);
+	for(int i = 0; i < 5; i++)
+	{
+	    line_sensor_readings.adc_reading[i] = bound(line_sensor_readings.adc_reading[i], WHITE_MARGIN, BLACK_MARGIN);
+	    line_sensor_readings.adc_reading[i] = map(line_sensor_readings.adc_reading[i], WHITE_MARGIN, BLACK_MARGIN, bound_LSA_LOW, bound_LSA_HIGH);
+	    line_sensor_readings.adc_reading[i] = 1000 - (line_sensor_readings.adc_reading[i]);
+	}
+
+	calculate_error();
+	if (error == 999) {
+            // Rotate in place until white line is detected
+            set_motor_speed(motor_a_0, MOTOR_FORWARD, ROTATION_SPEED);
+            set_motor_speed(motor_a_1, MOTOR_BACKWARD, ROTATION_SPEED);
+            
+            // Continue rotating until white line is detected
+            while (!is_white_detected()) {
+                line_sensor_readings = read_line_sensor(line_sensor);
+                for(int i = 0; i < 5; i++) {
+                    line_sensor_readings.adc_reading[i] = bound(line_sensor_readings.adc_reading[i], WHITE_MARGIN, BLACK_MARGIN);
+                    line_sensor_readings.adc_reading[i] = map(line_sensor_readings.adc_reading[i], WHITE_MARGIN, BLACK_MARGIN, bound_LSA_LOW, bound_LSA_HIGH);
+                    line_sensor_readings.adc_reading[i] = 1000 - (line_sensor_readings.adc_reading[i]);
+                }
+                vTaskDelay(10 / portTICK_PERIOD_MS);
+            }
+        } else {
+            // Normal line following behavior
+            calculate_correction();
+            left_duty_cycle = bound((optimum_duty_cycle + correction), lower_duty_cycle, higher_duty_cycle);
+            right_duty_cycle = bound((optimum_duty_cycle - correction), lower_duty_cycle, higher_duty_cycle);
+            set_motor_speed(motor_a_0, MOTOR_FORWARD, left_duty_cycle);
+            set_motor_speed(motor_a_1, MOTOR_FORWARD, right_duty_cycle);
         }
-
-        calculate_error();
-        calculate_correction();
-
-        left_duty_cycle = bound((optimum_duty_cycle + correction), lower_duty_cycle, higher_duty_cycle);
-        right_duty_cycle = bound((optimum_duty_cycle - correction), lower_duty_cycle, higher_duty_cycle);
-
-        set_motor_speed(motor_a_0, MOTOR_FORWARD, left_duty_cycle);
-        set_motor_speed(motor_a_1, MOTOR_FORWARD, right_duty_cycle);
-
-
-        //ESP_LOGI("debug","left_duty_cycle:  %f    ::  right_duty_cycle :  %f  :: error :  %f  correction  :  %f  \n",left_duty_cycle, right_duty_cycle, error, correction);
-        ESP_LOGI("debug", "KP: %f ::  KI: %f  :: KD: %f", read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
+	//ESP_LOGI("debug","left_duty_cycle:  %f    ::  right_duty_cycle :  %f  :: error :  %f  correction  :  %f  \n",left_duty_cycle, right_duty_cycle, error, correction);
+	ESP_LOGI("debug", "KP: %f ::  KI: %f  :: KD: %f", read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
 	ESP_LOGI("IR_TEST","IR_VALUE : %d",read_ir());
 #ifdef CONFIG_ENABLE_OLED
-        // Diplaying kp, ki, kd values on OLED
-        if (read_pid_const().val_changed)
-        {
-            display_pid_values(read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
-            reset_val_changed_pid_const();
-        }
+	// Diplaying kp, ki, kd values on OLED
+	if (read_pid_const().val_changed)
+	{
+	    display_pid_values(read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
+	    reset_val_changed_pid_const();
+	}
 #endif
 
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+	vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 
     vTaskDelete(NULL);
