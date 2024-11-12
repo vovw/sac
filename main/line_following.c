@@ -12,6 +12,7 @@
 #define bound_LSA_HIGH 1000
 #define BLACK_BOUNDARY  930    // Boundary value to distinguish between black and white readings
 #define ROTATION_SPEED 60 
+int all_black_counter = 0;
 
 /*
  * weights given to respective line sensor
@@ -28,7 +29,7 @@ extern int higher_duty_cycle;
 int higher_duty_cycle = 64;
 
 
-float left_duty_cycle = 5, right_duty_cycle = 5;
+float left_duty_cycle = 35, right_duty_cycle = 35;
 
 /*
  * Line Following PID Variables
@@ -93,11 +94,26 @@ void calculate_error()
     }
 
     if(all_black_flag == 1)
-    {
-        error = 999; // Special error value to indicate all-black condition
+    {	
+	all_black_counter++;
+	if(all_black_counter>=25){
+		error = 999;
+	}
+	else{
+	if(prev_error > 0)
+        {
+            error = 2.5;
+        }
+        else
+        {
+            error = -2.5;
+        }
+	}
+         // Special error value to indicate all-black condition
     }
     else
     {
+	all_black_counter = 0; 
         error = pos;
     }
 }
@@ -149,6 +165,7 @@ void line_follow_task(void* arg)
                 }
                 vTaskDelay(10 / portTICK_PERIOD_MS);
             }
+	    all_black_counter = 0;
         } else {
             // Normal line following behavior
             calculate_correction();
@@ -156,6 +173,7 @@ void line_follow_task(void* arg)
             right_duty_cycle = bound((optimum_duty_cycle - correction), lower_duty_cycle, higher_duty_cycle);
             set_motor_speed(motor_a_0, MOTOR_FORWARD, left_duty_cycle);
             set_motor_speed(motor_a_1, MOTOR_FORWARD, right_duty_cycle);
+
         }
 	//ESP_LOGI("debug","left_duty_cycle:  %f    ::  right_duty_cycle :  %f  :: error :  %f  correction  :  %f  \n",left_duty_cycle, right_duty_cycle, error, correction);
 	ESP_LOGI("debug", "KP: %f ::  KI: %f  :: KD: %f", read_pid_const().kp, read_pid_const().ki, read_pid_const().kd);
