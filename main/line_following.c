@@ -39,7 +39,7 @@ int optimum_duty_cycle = 60;
 int lower_duty_cycle = 45;
 extern int higher_duty_cycle;
 
-int higher_duty_cycle = 67;
+int higher_duty_cycle = 70;
 
 
 float left_duty_cycle = 35, right_duty_cycle = 35;
@@ -223,7 +223,7 @@ void line_follow_task(void* arg)
                 vTaskDelay(10 / portTICK_PERIOD_MS);
             }
         }
-        else if(is_intersection()) {
+        else if(is_intersection()&& read_ir()==0) {
             calculate_error();
             calculate_correction();
 
@@ -243,6 +243,27 @@ void line_follow_task(void* arg)
                 set_motor_speed(motor_a_1, MOTOR_BACKWARD, ROTATION_SPEED);
             }
         }
+	else if(is_intersection()&& read_ir()!=0){
+		calculate_error();
+            	calculate_correction();
+
+            	set_motor_speed(motor_a_0, MOTOR_FORWARD, ROTATION_SPEED);
+            	set_motor_speed(motor_a_1, MOTOR_BACKWARD, ROTATION_SPEED);
+
+            // Continue rotating until white line is detected
+            while (!is_white_detected()) {
+                line_sensor_readings = read_line_sensor(line_sensor);
+                for(int i = 0; i < 5; i++) {
+                    line_sensor_readings.adc_reading[i] = bound(line_sensor_readings.adc_reading[i], WHITE_MARGIN, BLACK_MARGIN);
+                    line_sensor_readings.adc_reading[i] = map(line_sensor_readings.adc_reading[i], WHITE_MARGIN, BLACK_MARGIN, bound_LSA_LOW, bound_LSA_HIGH);
+                    line_sensor_readings.adc_reading[i] = 1000 - (line_sensor_readings.adc_reading[i]);
+                }
+                vTaskDelay(10 / portTICK_PERIOD_MS);
+            }
+
+	    
+
+	}
         else {
             // Normal line following behavior
             calculate_error();
