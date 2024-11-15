@@ -6,7 +6,7 @@ extern void disable_motors();
 
 static const char *TAG = "tuning_http_server";
 static char scratch[SCRATCH_BUFSIZE];
-static pid_const_t pid_constants = {.kp = 4, .ki = 0, .kd = 12, .val_changed = true};
+static pid_const_t pid_constants = {.kp = 0.95, .ki = 0, .kd = 200, .val_changed = true};
 
 static void initialise_mdns(void)
 {
@@ -201,14 +201,6 @@ static esp_err_t tuning_pid_post_handler(httpd_req_t *req)
     return ESP_OK;
 }
 
-// handler for stopping the robot
-static esp_err_t stop_post_handler(httpd_req_t *req)
-{
-    disable_motors();
-    httpd_resp_sendstr(req, "Robot stopped successfully");
-    return ESP_OK;
-}
-
 static esp_err_t start_tuning_http_server_private()
 {
     httpd_handle_t server = NULL;
@@ -236,16 +228,9 @@ static esp_err_t start_tuning_http_server_private()
         .user_ctx  = NULL
     };
 
-    httpd_uri_t stop_uri = {
-        .uri = "/api/v1/stop",
-        .method = HTTP_POST,
-        .handler = stop_post_handler,
-        .user_ctx = NULL
-    };
 
     httpd_register_uri_handler(server, &speed_uri);
     httpd_register_uri_handler(server, &tuning_pid_post_uri);
-    httpd_register_uri_handler(server, &stop_uri);
 
     httpd_uri_t common_get_uri = {
         .uri = "/*",

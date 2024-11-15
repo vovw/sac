@@ -39,8 +39,6 @@ typedef struct pid_const
     bool val_changed;
 } pid_const_t;
 
-void disable_motors();
-
 pid_const_t read_pid_const();
 
 // changes heree

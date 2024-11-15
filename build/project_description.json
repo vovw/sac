@@ -1,7 +1,7 @@
 {
     "version":            "1",
     "project_name":       "line_following",
-    "project_version":    "17909a0",
+    "project_version":    "43bc83b-dirty",
     "project_path":       "/Users/asuna/fun/sac2024",
     "idf_path":           "/Users/asuna/esp/esp-idf",
     "build_dir":          "/Users/asuna/fun/sac2024/build",
