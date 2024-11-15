@@ -44,6 +44,17 @@ int higher_duty_cycle = 70;
 
 float left_duty_cycle = 35, right_duty_cycle = 35;
 
+
+void disable_motors(){
+    motor_handle_t motor_a_0, motor_a_1;
+    ESP_ERROR_CHECK(enable_motor_driver(&motor_a_0, MOTOR_A_0));
+    ESP_ERROR_CHECK(enable_motor_driver(&motor_a_1, MOTOR_A_1));
+
+    set_motor_speed(motor_a_0, MOTOR_FORWARD, 0);
+    set_motor_speed(motor_a_1, MOTOR_FORWARD, 0);
+
+}
+
 /*
  * Line Following PID Variables
  */
@@ -261,7 +272,7 @@ void line_follow_task(void* arg)
                 vTaskDelay(10 / portTICK_PERIOD_MS);
             }
 
-	    
+
 
 	}
         else {

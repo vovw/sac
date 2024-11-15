@@ -1,4 +1,8 @@
+
 #include "tuning_http_server.h"
+
+// Add extern motor disable function
+extern void disable_motors();
 
 static const char *TAG = "tuning_http_server";
 static char scratch[SCRATCH_BUFSIZE];
@@ -70,7 +74,6 @@ static esp_err_t set_content_type_from_file(httpd_req_t *req, const char *filepa
     return httpd_resp_set_type(req, type);
 }
 
-// changes here
 static esp_err_t speed_post_handler(httpd_req_t *req)
 {
     char buf[100];
@@ -91,7 +94,6 @@ static esp_err_t speed_post_handler(httpd_req_t *req)
     httpd_resp_send(req, "OK", 2);
     return ESP_OK;
 }
-
 
 void set_higher_duty_cycle(int speed)
 {
@@ -199,6 +201,14 @@ static esp_err_t tuning_pid_post_handler(httpd_req_t *req)
     return ESP_OK;
 }
 
+// handler for stopping the robot
+static esp_err_t stop_post_handler(httpd_req_t *req)
+{
+    disable_motors();
+    httpd_resp_sendstr(req, "Robot stopped successfully");
+    return ESP_OK;
+}
+
 static esp_err_t start_tuning_http_server_private()
 {
     httpd_handle_t server = NULL;
@@ -218,7 +228,7 @@ static esp_err_t start_tuning_http_server_private()
         .handler = tuning_pid_post_handler,
         .user_ctx = NULL
     };
-    // changes here
+
     httpd_uri_t speed_uri = {
         .uri       = "/api/v1/speed",
         .method    = HTTP_POST,
@@ -226,13 +236,16 @@ static esp_err_t start_tuning_http_server_private()
         .user_ctx  = NULL
     };
 
-    httpd_register_uri_handler(server, &speed_uri);
+    httpd_uri_t stop_uri = {
+        .uri = "/api/v1/stop",
+        .method = HTTP_POST,
+        .handler = stop_post_handler,
+        .user_ctx = NULL
+    };
 
-    if (httpd_register_uri_handler(server, &tuning_pid_post_uri) != ESP_OK)
-    {
-        ESP_LOGE(TAG, "register post uri failed");
-        return ESP_FAIL;
-    }
+    httpd_register_uri_handler(server, &speed_uri);
+    httpd_register_uri_handler(server, &tuning_pid_post_uri);
+    httpd_register_uri_handler(server, &stop_uri);
 
     httpd_uri_t common_get_uri = {
         .uri = "/*",
