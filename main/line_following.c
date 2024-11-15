@@ -47,8 +47,15 @@ float left_duty_cycle = 35, right_duty_cycle = 35;
 
 void disable_motors(){
     motor_handle_t motor_a_0, motor_a_1;
+
     ESP_ERROR_CHECK(enable_motor_driver(&motor_a_0, MOTOR_A_0));
     ESP_ERROR_CHECK(enable_motor_driver(&motor_a_1, MOTOR_A_1));
+
+    set_motor_speed(motor_a_0, MOTOR_FORWARD, 60);
+    set_motor_speed(motor_a_1, MOTOR_FORWARD, 60);
+
+    vTaskDelay(1000);
+
 
     set_motor_speed(motor_a_0, MOTOR_FORWARD, 0);
     set_motor_speed(motor_a_1, MOTOR_FORWARD, 0);
