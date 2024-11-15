@@ -12,6 +12,7 @@
 #include "esp_event.h"
 #include "esp_log.h"
 #include "mdns.h"
+
 #include "lwip/apps/netbiosns.h"
 #include "esp_http_server.h"
 #include "esp_system.h"
@@ -37,6 +38,8 @@ typedef struct pid_const
     float kd;
     bool val_changed;
 } pid_const_t;
+
+void disable_motors();
 
 pid_const_t read_pid_const();
 
